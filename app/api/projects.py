@@ -1,7 +1,9 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
+from app.auth.dependencies import get_current_admin
 from app.database.session import get_db
+from app.models.admin import AdminUser
 from app.schemas.project import ProjectCreate, ProjectListOut, ProjectOut, ProjectUpdate
 from app.services.project_service import ProjectService
 
@@ -19,15 +21,28 @@ def get_project(project_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("", response_model=ProjectOut, status_code=201)
-def create_project(data: ProjectCreate, db: Session = Depends(get_db)):
+def create_project(
+    data: ProjectCreate,
+    db: Session = Depends(get_db),
+    _: AdminUser = Depends(get_current_admin),
+):
     return ProjectService.create_project(db, data)
 
 
 @router.put("/{project_id}", response_model=ProjectOut)
-def update_project(project_id: int, data: ProjectUpdate, db: Session = Depends(get_db)):
+def update_project(
+    project_id: int,
+    data: ProjectUpdate,
+    db: Session = Depends(get_db),
+    _: AdminUser = Depends(get_current_admin),
+):
     return ProjectService.update_project(db, project_id, data)
 
 
 @router.delete("/{project_id}", status_code=204)
-def delete_project(project_id: int, db: Session = Depends(get_db)):
+def delete_project(
+    project_id: int,
+    db: Session = Depends(get_db),
+    _: AdminUser = Depends(get_current_admin),
+):
     ProjectService.delete_project(db, project_id)
