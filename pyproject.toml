@@ -1,7 +1,7 @@
 [project]
-name = "apex-engineering-backend"
+name = "rkh-automation-backend"
 version = "0.1.0"
-description = "Apex Engineering Works - company website backend"
+description = "RKH Automation - company website backend"
 requires-python = ">=3.13"
 dependencies = [
     "fastapi>=0.115.0",
@@ -16,6 +16,7 @@ dependencies = [
     "python-multipart>=0.0.12",
     "psycopg2>=2.9.12",
     "bcrypt>=5.0.0",
+    "email-validator>=2.3.0",
 ]
 
 [tool.uv]

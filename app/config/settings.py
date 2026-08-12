@@ -5,7 +5,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     # App
-    app_name: str = "Apex Engineering Works API"
+    app_name: str = "RKH Automation API"
     environment: str = "development"
     debug: bool = True
 
